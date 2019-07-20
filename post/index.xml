@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>https://niweiwei163.github.io/post/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Jul 2019 19:37:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://niweiwei163.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My</title>
+      <link>https://niweiwei163.github.io/post/my/</link>
+      <pubDate>Sat, 20 Jul 2019 19:37:14 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/my/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SDWebImage的使用和理解</title>
+      <link>https://niweiwei163.github.io/post/sdwebimage%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Tue, 02 Jul 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/sdwebimage%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</guid>
+      <description>一.SDWebImage的使用 1.平常使用的加载图片
+无占位图直接加载
+[imageView sd_setImageWithURL:imageURL];  有占位图
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder()];  有占位图 ，且加载完图片后，需要做些其他操作，可以使用block回调
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) { }];  选择options的形式加载图片
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() options:SDWebImageRetryFailed| SDWebImageCacheMemoryOnly]; /*使用可更换optionsType的加载方式 SDWebImageRetryFailed 默认情况下，当URL无法下载时，URL就会被列入黑名单，这样库就不会继续尝试了。此标记禁用此黑名单。 SDWebImageLowPriority 默认情况下，图像下载是在UI交互过程中启动的，这标志禁用该特性，导致在UIScrollView减速方面延迟下载。 SDWebImageCacheMemoryOnly 此标记禁用磁盘缓存 SDWebImageProgressiveDownload 此标志可以进行渐进式下载，在下载过程中，图像会逐步显示，就像浏览器所做的那样。默认情况下，图像只显示一次完全 下载。 SDWebImageRefreshCached 即使缓存了映像，也要尊重HTTP响应缓存控制，并在需要的情况下从远程位置刷新映像。磁盘缓存将由NSURLCache来处理，而不是使用SDWebImage，这会导致轻微的性能下降。这个选项有助于处理在同一个请求URL后面更改的图像，例如Facebook图形api概要图。如果刷新了缓存的图像，那么完成块就会被缓存的图像和最后的图像再次调用一次。只有当你不能用嵌入的缓存破坏参数使你的url静态时，才使用这个标志。 SDWebImageContinueInBackground 在iOS 4+中，如果应用程序进入后台，可以继续下载图片。这是通过请求系统在后台获得额外的时间来完成请求完成的。如果后台任务过期，操作将被取消。 SDWebImageHandleCookies 通过设置NSMutableURLRequest来处理存储在NSHTTPCookieStore中的cookie。HTTPShouldHandleCookies =是的; SDWebImageAllowInvalidSSLCertificates 启用不受信任的SSL证书。用于测试目的。在生产中使用谨慎。 SDWebImageHighPriority 默认情况下，图像按顺序装载在队列中。这个标志把它们移到队列的前面。 SDWebImageDelayPlaceholder 默认情况下，在图像加载时加载占位符图像。此标志将延迟加载占位符图像，直到图像完成加载。 SDWebImageTransformAnimatedImage 我们通常不会在动画图像上调用transformdownloade昏暗委托方法，因为大多数转换代码会把它搞砸。无论如何，使用这个标志来转换它们。 SDWebImageAvoidAutoSetImage 默认情况下，图像会在下载后添加到imageView中。但是在某些情况下，我们想要在设置图像之前有手(例如，应用一个过滤器或将它添加到交叉衰减动画中)使用这个标记如果你想在成功完成时手工设置图像 SDWebImageScaleDownLargeImages 默认情况下，图像会被解码，以尊重它们原来的大小。在iOS上，这一标志将把图像缩小到与设备受限内存兼容的大小。如果“SDWebImageProgressiveDownload”标志设置禁用缩减。 */  2.</description>
+    </item>
+    
+    <item>
+      <title>hugo搭建个人博客</title>
+      <link>https://niweiwei163.github.io/post/firstblog/</link>
+      <pubDate>Tue, 02 Jul 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/firstblog/</guid>
+      <description>教程链接：https://www.bilibili.com/video/av51574688
+Hugo中文文档 :https://www.gohugo.org/
+https://www.gohugo.org/doc/tutorials/installing-on-mac/
+Hugo主题:https://themes.gohugo.io/
+安装 Hugo Hugo 搭建个人博客前，需要先安装 Git 和 Go 语言开发环境
+Mac 安装 Hugo 到 https://github.com/gohugoio/hugo/releases 下载对应的操作系统版本的Hugo二进制文件（hugo或者hugo.exe） Mac下直接使用 Homebrew 安装： Windows 安装 Hugo 在 https://github.com/gohugoio/hugo/releases 下载二进制包安装 安装完成后，在命令行输入以下命令查看安装： 建立 Hugo 站点 使用Hugo快速生成站点，(你希望生成到什么位置 就cd到对应目录),这里是直接在用户目录下生成,站点名称是 blog 创建完成后，在 blog 文件夹下会生成以下文件结构： 创建文章 在站点目录下 创建第一篇文章，放到 post 目录 打开my-first-blog.md
+draft 参数控制网站上该页面是否显示。设置为 false 或者去掉该参数才显示
+添加主题 为了快速搭建博客，可以使用主题。使用主题后，只需要向 content 文件夹添加 Markdown 文件即可。
+Hugo 有主题选择 https://themes.gohugo.io/
+进入根站点目录，克安装主题
+比如你觉得 Hyde 皮肤不错，找到相关的 GitHub 地址，创建目录 themes，在 themes 目录里把皮肤 git clone 下来 配置主题 为了个人使用，需要修改 config.</description>
+    </item>
+    
+    <item>
+      <title>jenkins</title>
+      <link>https://niweiwei163.github.io/post/jenkins/</link>
+      <pubDate>Tue, 02 Jul 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/jenkins/</guid>
+      <description>jenkins
+官网：https://plugins.jenkins.io/
+参考：https://www.jianshu.com/p/3668979476ad
+https://www.jianshu.com/p/41ecb06ae95f
+https://www.jianshu.com/p/5007625191d7
+排错：http://www.pianshen.com/article/6666238442/
+fastlane
+参考：https://www.jianshu.com/p/ccaf901d10ae
+https://www.jianshu.com/p/70f2237a365a
+https://www.jianshu.com/p/3284e43e1b60
+https://www.cnblogs.com/ZachRobin/p/10413263.html</description>
+    </item>
+    
+    <item>
+      <title>typora基础</title>
+      <link>https://niweiwei163.github.io/post/typora%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Tue, 02 Jul 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/typora%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/</guid>
+      <description>一级标题(#) 二级标题(##) 三级标题(###) 常见用法 1.&amp;ldquo;&amp;gt;&amp;rdquo; + 空格
+  2.&amp;ldquo;1.&amp;rdquo; +空格
+  a b c    3.&amp;ldquo;-&amp;rdquo; + 空格
+  a b c   4.分割线： &amp;ldquo;***&amp;rdquo; 或者 &amp;ldquo;&amp;mdash;&amp;rdquo;
+5.&amp;rdquo;``&amp;rdquo; 英文状态下 esc下面的按钮
+ 内容内容内容
+ 6.&amp;rdquo;** **&amp;rdquo;
+ **速度速度 **
+ 7.&amp;rdquo;* *&amp;rdquo; 或者 &amp;ldquo;_ _&amp;rdquo;
+ 强调内容
+ 8.&amp;rdquo;  标签&amp;rdquo;
+ 下划线
+ 9.波浪线包起来&amp;rdquo; ~~ ~~&amp;rdquo;
+删除线
+10.&amp;ldquo;加\转义&amp;rdquo;
+ \
++
+-
+.</description>
+    </item>
+    
+  </channel>
+</rss>

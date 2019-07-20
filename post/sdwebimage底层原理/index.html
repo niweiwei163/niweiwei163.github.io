@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>SDWebImage的使用和理解 // My New Hugo Site</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://niweiwei163.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SDWebImage的使用和理解"/>
+<meta name="twitter:description" content="一.SDWebImage的使用 1.平常使用的加载图片
+无占位图直接加载
+[imageView sd_setImageWithURL:imageURL];  有占位图
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder()];  有占位图 ，且加载完图片后，需要做些其他操作，可以使用block回调
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) { }];  选择options的形式加载图片
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() options:SDWebImageRetryFailed| SDWebImageCacheMemoryOnly]; /*使用可更换optionsType的加载方式 SDWebImageRetryFailed 默认情况下，当URL无法下载时，URL就会被列入黑名单，这样库就不会继续尝试了。此标记禁用此黑名单。 SDWebImageLowPriority 默认情况下，图像下载是在UI交互过程中启动的，这标志禁用该特性，导致在UIScrollView减速方面延迟下载。 SDWebImageCacheMemoryOnly 此标记禁用磁盘缓存 SDWebImageProgressiveDownload 此标志可以进行渐进式下载，在下载过程中，图像会逐步显示，就像浏览器所做的那样。默认情况下，图像只显示一次完全 下载。 SDWebImageRefreshCached 即使缓存了映像，也要尊重HTTP响应缓存控制，并在需要的情况下从远程位置刷新映像。磁盘缓存将由NSURLCache来处理，而不是使用SDWebImage，这会导致轻微的性能下降。这个选项有助于处理在同一个请求URL后面更改的图像，例如Facebook图形api概要图。如果刷新了缓存的图像，那么完成块就会被缓存的图像和最后的图像再次调用一次。只有当你不能用嵌入的缓存破坏参数使你的url静态时，才使用这个标志。 SDWebImageContinueInBackground 在iOS 4&#43;中，如果应用程序进入后台，可以继续下载图片。这是通过请求系统在后台获得额外的时间来完成请求完成的。如果后台任务过期，操作将被取消。 SDWebImageHandleCookies 通过设置NSMutableURLRequest来处理存储在NSHTTPCookieStore中的cookie。HTTPShouldHandleCookies =是的; SDWebImageAllowInvalidSSLCertificates 启用不受信任的SSL证书。用于测试目的。在生产中使用谨慎。 SDWebImageHighPriority 默认情况下，图像按顺序装载在队列中。这个标志把它们移到队列的前面。 SDWebImageDelayPlaceholder 默认情况下，在图像加载时加载占位符图像。此标志将延迟加载占位符图像，直到图像完成加载。 SDWebImageTransformAnimatedImage 我们通常不会在动画图像上调用transformdownloade昏暗委托方法，因为大多数转换代码会把它搞砸。无论如何，使用这个标志来转换它们。 SDWebImageAvoidAutoSetImage 默认情况下，图像会在下载后添加到imageView中。但是在某些情况下，我们想要在设置图像之前有手(例如，应用一个过滤器或将它添加到交叉衰减动画中)使用这个标记如果你想在成功完成时手工设置图像 SDWebImageScaleDownLargeImages 默认情况下，图像会被解码，以尊重它们原来的大小。在iOS上，这一标志将把图像缩小到与设备受限内存兼容的大小。如果“SDWebImageProgressiveDownload”标志设置禁用缩减。 */  2."/>
+
+    <meta property="og:title" content="SDWebImage的使用和理解" />
+<meta property="og:description" content="一.SDWebImage的使用 1.平常使用的加载图片
+无占位图直接加载
+[imageView sd_setImageWithURL:imageURL];  有占位图
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder()];  有占位图 ，且加载完图片后，需要做些其他操作，可以使用block回调
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) { }];  选择options的形式加载图片
+[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() options:SDWebImageRetryFailed| SDWebImageCacheMemoryOnly]; /*使用可更换optionsType的加载方式 SDWebImageRetryFailed 默认情况下，当URL无法下载时，URL就会被列入黑名单，这样库就不会继续尝试了。此标记禁用此黑名单。 SDWebImageLowPriority 默认情况下，图像下载是在UI交互过程中启动的，这标志禁用该特性，导致在UIScrollView减速方面延迟下载。 SDWebImageCacheMemoryOnly 此标记禁用磁盘缓存 SDWebImageProgressiveDownload 此标志可以进行渐进式下载，在下载过程中，图像会逐步显示，就像浏览器所做的那样。默认情况下，图像只显示一次完全 下载。 SDWebImageRefreshCached 即使缓存了映像，也要尊重HTTP响应缓存控制，并在需要的情况下从远程位置刷新映像。磁盘缓存将由NSURLCache来处理，而不是使用SDWebImage，这会导致轻微的性能下降。这个选项有助于处理在同一个请求URL后面更改的图像，例如Facebook图形api概要图。如果刷新了缓存的图像，那么完成块就会被缓存的图像和最后的图像再次调用一次。只有当你不能用嵌入的缓存破坏参数使你的url静态时，才使用这个标志。 SDWebImageContinueInBackground 在iOS 4&#43;中，如果应用程序进入后台，可以继续下载图片。这是通过请求系统在后台获得额外的时间来完成请求完成的。如果后台任务过期，操作将被取消。 SDWebImageHandleCookies 通过设置NSMutableURLRequest来处理存储在NSHTTPCookieStore中的cookie。HTTPShouldHandleCookies =是的; SDWebImageAllowInvalidSSLCertificates 启用不受信任的SSL证书。用于测试目的。在生产中使用谨慎。 SDWebImageHighPriority 默认情况下，图像按顺序装载在队列中。这个标志把它们移到队列的前面。 SDWebImageDelayPlaceholder 默认情况下，在图像加载时加载占位符图像。此标志将延迟加载占位符图像，直到图像完成加载。 SDWebImageTransformAnimatedImage 我们通常不会在动画图像上调用transformdownloade昏暗委托方法，因为大多数转换代码会把它搞砸。无论如何，使用这个标志来转换它们。 SDWebImageAvoidAutoSetImage 默认情况下，图像会在下载后添加到imageView中。但是在某些情况下，我们想要在设置图像之前有手(例如，应用一个过滤器或将它添加到交叉衰减动画中)使用这个标记如果你想在成功完成时手工设置图像 SDWebImageScaleDownLargeImages 默认情况下，图像会被解码，以尊重它们原来的大小。在iOS上，这一标志将把图像缩小到与设备受限内存兼容的大小。如果“SDWebImageProgressiveDownload”标志设置禁用缩减。 */  2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://niweiwei163.github.io/post/sdwebimage%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" />
+<meta property="article:published_time" content="2019-07-02T16:15:53&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-02T16:15:53&#43;08:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://niweiwei163.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1>My New Hugo Site</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">SDWebImage的使用和理解</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 2, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h3 id="一-sdwebimage的使用">一.SDWebImage的使用</h3>
+
+<p>1.平常使用的加载图片</p>
+
+<p>无占位图直接加载</p>
+
+<pre><code class="language-objective-c">[imageView sd_setImageWithURL:imageURL];
+</code></pre>
+
+<p>有占位图</p>
+
+<pre><code class="language-objective-c">[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder()];
+</code></pre>
+
+<p>有占位图 ，且加载完图片后，需要做些其他操作，可以使用block回调</p>
+
+<pre><code class="language-objective-c">[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+   
+}];
+</code></pre>
+
+<p>选择options的形式加载图片</p>
+
+<pre><code class="language-objective-c">[imageView sd_setImageWithURL:imageURL placeholderImage:NIWebImagePlaceholder() options:SDWebImageRetryFailed| SDWebImageCacheMemoryOnly];
+
+
+/*使用可更换optionsType的加载方式
+
+ SDWebImageRetryFailed 
+ 默认情况下，当URL无法下载时，URL就会被列入黑名单，这样库就不会继续尝试了。此标记禁用此黑名单。
+ 
+ SDWebImageLowPriority  
+ 默认情况下，图像下载是在UI交互过程中启动的，这标志禁用该特性，导致在UIScrollView减速方面延迟下载。
+ 
+ SDWebImageCacheMemoryOnly  
+ 此标记禁用磁盘缓存
+ 
+ SDWebImageProgressiveDownload 
+ 此标志可以进行渐进式下载，在下载过程中，图像会逐步显示，就像浏览器所做的那样。默认情况下，图像只显示一次完全 下载。
+ 
+ SDWebImageRefreshCached  
+ 即使缓存了映像，也要尊重HTTP响应缓存控制，并在需要的情况下从远程位置刷新映像。磁盘缓存将由NSURLCache来处理，而不是使用SDWebImage，这会导致轻微的性能下降。这个选项有助于处理在同一个请求URL后面更改的图像，例如Facebook图形api概要图。如果刷新了缓存的图像，那么完成块就会被缓存的图像和最后的图像再次调用一次。只有当你不能用嵌入的缓存破坏参数使你的url静态时，才使用这个标志。
+ 
+ SDWebImageContinueInBackground 
+ 在iOS 4+中，如果应用程序进入后台，可以继续下载图片。这是通过请求系统在后台获得额外的时间来完成请求完成的。如果后台任务过期，操作将被取消。
+ 
+ SDWebImageHandleCookies 
+ 通过设置NSMutableURLRequest来处理存储在NSHTTPCookieStore中的cookie。HTTPShouldHandleCookies =是的;
+ 
+ SDWebImageAllowInvalidSSLCertificates  
+ 启用不受信任的SSL证书。用于测试目的。在生产中使用谨慎。
+ 
+ SDWebImageHighPriority 
+ 默认情况下，图像按顺序装载在队列中。这个标志把它们移到队列的前面。
+ 
+ SDWebImageDelayPlaceholder  
+ 默认情况下，在图像加载时加载占位符图像。此标志将延迟加载占位符图像，直到图像完成加载。
+ 
+ SDWebImageTransformAnimatedImage   
+ 我们通常不会在动画图像上调用transformdownloade昏暗委托方法，因为大多数转换代码会把它搞砸。无论如何，使用这个标志来转换它们。
+ 
+ SDWebImageAvoidAutoSetImage 
+ 默认情况下，图像会在下载后添加到imageView中。但是在某些情况下，我们想要在设置图像之前有手(例如，应用一个过滤器或将它添加到交叉衰减动画中)使用这个标记如果你想在成功完成时手工设置图像
+ 
+ SDWebImageScaleDownLargeImages  默认情况下，图像会被解码，以尊重它们原来的大小。在iOS上，这一标志将把图像缩小到与设备受限内存兼容的大小。如果“SDWebImageProgressiveDownload”标志设置禁用缩减。
+ 
+ */
+
+</code></pre>
+
+<p><strong>2.SDWebImageManager的使用</strong></p>
+
+<p>SDWebImageManager将图片下载和图片缓存组合起来了。SDWebImageManager也可以单独使用</p>
+
+<pre><code class="language-objective-c">SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager loadImageWithURL:imageURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        
+    } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        
+}];
+</code></pre>
+
+<p><strong>3.单独使用SDWebImageDownloader异步下载图片</strong></p>
+
+<p>我们还可以单独使用 SDWebImageDownloader 来下载图片，但是图片内容不会缓存。</p>
+
+<pre><code>SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
+    [downloader downloadImageWithURL:imageURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        
+    } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+        
+ }];
+</code></pre>
+
+<p><strong>4.单独使用SDImageCache异步缓存图片</strong></p>
+
+<p>存储图片</p>
+
+<pre><code class="language-objective-c">/** 
+  内存和磁盘
+  最终都会访问到这个方法
+*/
+- (void)storeImage:(nullable UIImage *)image
+         imageData:(nullable NSData *)imageData
+            forKey:(nullable NSString *)key
+            toDisk:(BOOL)toDisk
+        completion:(nullable SDWebImageNoParamsBlock)completionBlock;
+        
+ /** 存磁盘 */
+- (void)_storeImageDataToDisk:(nullable NSData *)imageData forKey:(nullable NSString *)key 
+
+/** 一般使用 **/
+//添加缓存的方法：
+[[SDImageCache sharedImageCache] storeImage:image forKey:cacheKey];
+
+//默认情况下，图片数据会同时缓存到内存和磁盘中，如果你想只要内存缓存的话，可以使用下面的方法：
+[[SDImageCache sharedImageCache] storeImage:image forKey:cacheKey toDisk:NO];
+
+</code></pre>
+
+<p>取图片</p>
+
+<pre><code class="language-objective-c">/**内存缓存中读取 */
+- (nullable UIImage *)imageFromMemoryCacheForKey:(nullable NSString *)key {
+    return [self.memCache objectForKey:key];
+}
+
+/** 磁盘中读取 */
+- (nullable UIImage *)imageFromDiskCacheForKey:(nullable NSString *)key;
+
+/** 内存和或磁盘 */
+- (nullable UIImage *)imageFromCacheForKey:(nullable NSString *)key;
+</code></pre>
+
+<p>读取缓存时可以使用 queryDiskCacheForKey:done: 方法，图片缓存的 key 是唯一的，通常就是图片的 absolute URL</p>
+
+<pre><code class="language-objective-c">SDImageCache *imageCache = [[SDImageCache alloc] initWithNamespace:@&quot;myNamespace&quot;];
+[imageCache queryDiskCacheForKey:myCacheKey done:^(UIImage *image) {
+}];
+</code></pre>
+
+<p>缓存key自定义</p>
+
+<pre><code class="language-objective-c">SDWebImageManager.sharedManager.cacheKeyFilter = ^(NSURL *url) {
+            url = [[NSURL alloc] initWithScheme:url.scheme host:url.host path:url.path];
+            return [url absoluteString];
+ };
+</code></pre>
+
+<p>删除</p>
+
+<pre><code class="language-objective-c">- (void)removeImageForKey:(nullable NSString *)key fromDisk:(BOOL)fromDisk withCompletion:(nullable SDWebImageNoParamsBlock)completion;
+
+- (void)clearMemory;
+
+- (void)clearDiskOnCompletion:(nullable SDWebImageNoParamsBlock)completion;
+</code></pre>
+
+<h3 id="二-使用过程中常见问题">二.使用过程中常见问题</h3>
+
+<p>问题:   SDWebImage在进行缓存时忽略了所有服务器返回的 caching control 设置，并且在缓存时没有做时间限制，这也就意味着图片 URL 必须是静态的了，要求服务器上一个 URL 对应的图片内容不允许更新。但是如果存储图片的服务器不由自己控制，也就是说 图片内容更新了，URL 却没有更新。</p>
+
+<p>解决方案:   在调用 sd_setImageWithURL: placeholderImage: options:方法时设置 options 参数为 SDWebImageRefreshCached，这样虽然会降低性能，但是下载图片时会照顾到服务器返回的 caching control,</p>
+
+<p>这个需要服务器配合的：setHeader(&ldquo;Cache-Control&rdquo;, &ldquo;no-cache&rdquo;);要禁用缓存。</p>
+
+<p>问题:   在加载图片时，如何添加默认的 progress indicator</p>
+
+<p>解决方案:   在调用 -sd_setImageWithURL:方法之前，先调用下面的方法</p>
+
+<p>[imageView sd_setShowActivityIndicatorView:YES];</p>
+
+<p>[imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];</p>
+
+<h3 id="三-sdwebimage底层原理">三.SDWebImage底层原理</h3>
+
+<p><img src="https://github.com/niweiwei163/kindOfImages/blob/master/iOS/SDWebImage%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E7%90%86%E8%A7%A3/pic001.jpg?raw=true" alt="images" /></p>
+
+<p>1.检查图片缓存中有没有和URl相关的图片，如果有回调block将图片数据传递给SDWebImageManger类。SDWebImageMange类回调block将图片数据传递给UIImageView+WebCache类去显示图片</p>
+
+<p>2.当图片缓存中没有图片时，检查沙盒中是否存在图片，这一步操作是异步操作，如果从磁盘中读取到图片数据，将图片数据添加到内存缓存中，回调block将图片数据传递给SDWebImageManger类。 SDWebImageMange类回调block将图片数据传递给UIImageView+WebCache类去显示图片</p>
+
+<p>3.沙盒中也不存在，则显示占位图，然后由SDWebImageDownloader类downloadImageWithURL方法请求网络下载图片。根据图片的下载队列缓存判断是否正在下载，如果下载则取消原来旧任务，重新开始新任务。如果不存在则创建下载队列，下载完毕后将下载操作从队列中清除，并且将image存入图片缓存中。</p>
+
+<p>4.数据下载完成后交给 SDWebImageDecoder 做图片解码处理,图片解码完成后回调给SDWebImageDownloader类，SDWebImageDownloader类，回调block将图片数据传递给SDWebImageManger类。 SDWebImageMange类回调block将图片数据传递给UIImageView+WebCache类显示图片</p>
+
+<p>SDWebImageManager      管理图片的加载(缓存和下载)</p>
+
+<p>SDImagerCache                  检查内存中是否有图片缓存</p>
+
+<p>SDWebImageDownloader 请求网络下载图片。</p>
+
+<h3 id="四-sdwebimage主要源码查看">四.SDWebImage主要源码查看</h3>
+
+<p><img src="https://github.com/niweiwei163/kindOfImages/blob/master/iOS/SDWebImage%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E7%90%86%E8%A7%A3/pic002.png?raw=true" alt="imges" /></p>
+
+<p><img src="https://github.com/niweiwei163/kindOfImages/blob/master/iOS/SDWebImage%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E7%90%86%E8%A7%A3/pic003.png?raw=true" alt="images" /></p>
+
+<p>例子:为ImageView添加渐变效果&lt;无侵入式&gt;</p>
+
+<p>1.新增分类，重写方法</p>
+
+<pre><code class="language-objective-c">- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
+     __weak typeof(self) weakSelf = self;
+    [self sd_setImageWithURL:url placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        // cacheType == SDImageCacheTypeNone 意味着首次加载
+        if (image &amp;&amp; cacheType == SDImageCacheTypeNone) {
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionFade;
+            transition.duration = 0.3;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            [weakSelf.layer addAnimation:transition forKey:nil];
+        }
+
+    }];
+
+}
+</code></pre>
+
+<blockquote>
+<p>这个方法只适用于小范围的添加动画效果，如果需要全局统一的添加动画效果则需要采取下面的方式。</p>
+</blockquote>
+
+<p>2.SDWebImage在UIView+webCache的分类中提供了一个sd_imageTransition的关联对象，SDWebImageTransition是只是对CATransition的进一步封装，详细可以访问SDWebImage访问</p>
+
+<pre><code class="language-objective-c">@property (nonatomic, strong, nullable) SDWebImageTransition *sd_imageTransition;
+</code></pre>
+
+<p>这个关联对象在下述方法中被引用</p>
+
+<pre><code class="language-objective-c">- (void)sd_internalSetImageWithURL:(nullable NSURL *)url
+                  placeholderImage:(nullable UIImage *)placeholder
+                           options:(SDWebImageOptions)options
+                      operationKey:(nullable NSString *)operationKey
+                     setImageBlock:(nullable SDSetImageBlock)setImageBlock
+                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
+                         completed:(nullable SDExternalCompletionBlock)completedBlock
+                           context:(nullable NSDictionary&lt;NSString *, id&gt; *)context;
+
+</code></pre>
+
+<p>而sd_setImage的方法最终都会访问这个方法。
+如果我们项目需要为全部的网络图片加上渐变动画的话，只需要hook这个方法即可</p>
+
+<pre><code class="language-objective-c">+ (void)load {
+    
+    [self swizzleInstanceMethod:@selector(sd_internalSetImageWithURL:placeholderImage:options:operationKey:setImageBlock:progress:completed:context:)];
+}
+
++ (void)swizzleInstanceMethod:(SEL)sel {
+    
+    SEL other = NSSelectorFromString([NSString stringWithFormat:@&quot;gp_%@&quot;,NSStringFromSelector(sel)]);
+    
+    Method org = class_getInstanceMethod(self, sel);
+    Method method = class_getInstanceMethod(self, other);
+    
+    if (class_addMethod(self, sel, method_getImplementation(method), method_getTypeEncoding(method))) {
+        class_replaceMethod(self, other, method_getImplementation(org), method_getTypeEncoding(org));
+    } else {
+        method_exchangeImplementations(org, method);
+    }
+}
+
+-(void)gp_sd_internalSetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options operationKey:(NSString *)operationKey setImageBlock:(SDSetImageBlock)setImageBlock progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDExternalCompletionBlock)completedBlock context:(NSDictionary&lt;NSString *,id&gt; *)context {
+    if (!self.sd_imageTransition) {
+        self.sd_imageTransition = [SDWebImageTransition fadeTransition];
+        self.animationDuration = 0.3;
+    }
+    
+    [self gp_sd_internalSetImageWithURL:url placeholderImage:placeholder options:options operationKey:operationKey setImageBlock:setImageBlock progress:progressBlock completed:completedBlock context:context];
+    
+}
+</code></pre>
+
+<p>在该方法调用前，统一为view赋值sd_imageTransition,即可实现为imageView统一添加渐变效果，而不用更改项目的一行代码。</p>
+
+<blockquote>
+<p>另外 [SDWebImageTransition fadeTransition] 只是工厂方法的一种，还有其他很多的动画效果可以使用。</p>
+</blockquote>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
