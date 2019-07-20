@@ -3,25 +3,20 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://niweiwei163.github.io/post/my/</loc>
-    <lastmod>2019-07-20T19:37:14+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://niweiwei163.github.io/</loc>
-    <lastmod>2019-07-20T19:37:14+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://niweiwei163.github.io/post/</loc>
-    <lastmod>2019-07-20T19:37:14+08:00</lastmod>
+    <lastmod>2019-07-02T16:15:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://niweiwei163.github.io/post/sdwebimage%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-07-02T16:15:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://niweiwei163.github.io/</loc>
+    <lastmod>2019-07-02T16:15:53+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
