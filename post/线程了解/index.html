@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>线程了解 // Your title</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://niweiwei163.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="线程了解"/>
+<meta name="twitter:description" content="线程 在 iOS 中其实目前有 4 套多线程方案，他们分别是
+  Pthreads NSThread GCD NSOperation &amp; NSOperationQueue   Pthreads 这个其实不怎么用,了解下即可（毕竟做 iOS 开发几乎不可能用到）
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { pthread_t thread; //创建一个线程并自动执行 pthread_create(&amp;thread, NULL, start, NULL); } void *start(void *data) { NSLog(@&quot;%@&quot;, [NSThread currentThread]); return NULL; }  看代码就会发现他需要 c语言函数，你需要手动处理线程的各个状态的转换即管理生命周期，比如，这段代码虽然创建了一个线程，但并没有销毁。
+NSThread NSThread经过苹果封装后的，并且完全面向对象的。所以你可以直接操控线程对象，非常直观和方便。但是，它的生命周期还是需要我们手动管理，所以这套方案也是偶尔用用，比如 [NSThread currentThread]，它可以获取当前线程类，你就可以知道当前线程的各种属性，用于调试十分方便。
+//-----实例方法(常用的,不是全部)------ //创建 NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run:) object:nil]; NSThread *thread= [[NSThread alloc]initWithBlock:^{ NSLog(@&quot;initWithBlock&quot;); }]; //启动 [thread start]; //是否为主线程 [thread isMainThread] //取消线程 [thread cancel] //判断线程是否正在执行 [thread isExecuting] //判断线程是否已经结束 [thread isFinished] //判断线程是否撤销 [thread isCancelled] //-----类方法(常用的,不是全部)------ //创建子线程并开始，创建后就可执行，不需手动开启 &#43; (void)detachNewThreadWithBlock:(void (^)(void))block; &#43; (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(nullable id)argument; //获取当前线程 [NSThread currentThread] //当前代码运行所在线程是否是子线程 [NSThread isMultiThreaded] //当前代码所在线程睡到指定时间 [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1."/>
+
+    <meta property="og:title" content="线程了解" />
+<meta property="og:description" content="线程 在 iOS 中其实目前有 4 套多线程方案，他们分别是
+  Pthreads NSThread GCD NSOperation &amp; NSOperationQueue   Pthreads 这个其实不怎么用,了解下即可（毕竟做 iOS 开发几乎不可能用到）
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { pthread_t thread; //创建一个线程并自动执行 pthread_create(&amp;thread, NULL, start, NULL); } void *start(void *data) { NSLog(@&quot;%@&quot;, [NSThread currentThread]); return NULL; }  看代码就会发现他需要 c语言函数，你需要手动处理线程的各个状态的转换即管理生命周期，比如，这段代码虽然创建了一个线程，但并没有销毁。
+NSThread NSThread经过苹果封装后的，并且完全面向对象的。所以你可以直接操控线程对象，非常直观和方便。但是，它的生命周期还是需要我们手动管理，所以这套方案也是偶尔用用，比如 [NSThread currentThread]，它可以获取当前线程类，你就可以知道当前线程的各种属性，用于调试十分方便。
+//-----实例方法(常用的,不是全部)------ //创建 NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run:) object:nil]; NSThread *thread= [[NSThread alloc]initWithBlock:^{ NSLog(@&quot;initWithBlock&quot;); }]; //启动 [thread start]; //是否为主线程 [thread isMainThread] //取消线程 [thread cancel] //判断线程是否正在执行 [thread isExecuting] //判断线程是否已经结束 [thread isFinished] //判断线程是否撤销 [thread isCancelled] //-----类方法(常用的,不是全部)------ //创建子线程并开始，创建后就可执行，不需手动开启 &#43; (void)detachNewThreadWithBlock:(void (^)(void))block; &#43; (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(nullable id)argument; //获取当前线程 [NSThread currentThread] //当前代码运行所在线程是否是子线程 [NSThread isMultiThreaded] //当前代码所在线程睡到指定时间 [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://niweiwei163.github.io/post/%E7%BA%BF%E7%A8%8B%E4%BA%86%E8%A7%A3/" />
+<meta property="article:published_time" content="2019-07-12T16:15:53&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-12T16:15:53&#43;08:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://niweiwei163.github.io/"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1>Your title</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/gohugoio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/gohugoio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">线程了解</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 12, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h3 id="线程">线程</h3>
+
+<p>在 iOS 中其实目前有 <code>4</code> 套多线程方案，他们分别是</p>
+
+<blockquote>
+<ul>
+<li>Pthreads</li>
+<li>NSThread</li>
+<li>GCD</li>
+<li>NSOperation &amp; NSOperationQueue</li>
+</ul>
+</blockquote>
+
+<h4 id="pthreads">Pthreads</h4>
+
+<p>这个其实不怎么用,了解下即可（毕竟做 iOS 开发几乎不可能用到）</p>
+
+<pre><code class="language-objective-c">- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    pthread_t thread;
+    //创建一个线程并自动执行
+    pthread_create(&amp;thread, NULL, start, NULL);
+}
+
+void *start(void *data) {
+    NSLog(@&quot;%@&quot;, [NSThread currentThread]);
+ 
+    return NULL;
+}
+</code></pre>
+
+<p>看代码就会发现他需要 <strong>c语言函数</strong>，你需要手动处理线程的各个状态的转换即管理生命周期，比如，这段代码虽然创建了一个线程，但并没有销毁。</p>
+
+<h4 id="nsthread">NSThread</h4>
+
+<p>NSThread经过苹果封装后的，并且完全面向对象的。所以你可以直接操控线程对象，非常直观和方便。但是，它的生命周期还是需要我们手动管理，所以这套方案也是偶尔用用，比如 <code>[NSThread currentThread]</code>，它可以获取当前线程类，你就可以知道当前线程的各种属性，用于调试十分方便。</p>
+
+<pre><code class="language-objective-c">//-----实例方法(常用的,不是全部)------
+//创建
+NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run:) object:nil];
+
+NSThread  *thread= [[NSThread alloc]initWithBlock:^{
+  NSLog(@&quot;initWithBlock&quot;);
+}];
+ 
+//启动
+[thread start];
+
+//是否为主线程
+[thread isMainThread]
+
+//取消线程
+[thread cancel]
+
+//判断线程是否正在执行
+[thread isExecuting]
+
+//判断线程是否已经结束
+[thread isFinished]
+
+//判断线程是否撤销
+[thread isCancelled]
+
+//-----类方法(常用的,不是全部)------
+//创建子线程并开始，创建后就可执行，不需手动开启
++ (void)detachNewThreadWithBlock:(void (^)(void))block;
++ (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(nullable id)argument;
+
+//获取当前线程
+[NSThread currentThread]
+
+//当前代码运行所在线程是否是子线程
+[NSThread isMultiThreaded]
+
+//当前代码所在线程睡到指定时间
+[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+
+//当前线程睡多长时间
+[NSThread sleepForTimeInterval:1.0];
+
+//退出当前线程
+[NSThread exit];
+
+//设置当前线程优先级
+double dPriority=[NSThread threadPriority];
+
+//给当前线程设定优先级，调度优先级的取值范围是0.0 ~ 1.0，默认0.5，值越大，优先级越高。
+BOOL isSetting=[NSThread setThreadPriority:(0.0~1.0)];
+
+//返回的是函数调用返回的虚拟地址，说白了就是在该线程中函数调用的虚拟地址的数组
+NSArray *addressArray=[NSThread callStackReturnAddresses];
+
+//返回的是该线程调用函数的名字数字
+NSArray* nameNumArray=[NSThread callStackSymbols];
+
+//注意：callStackReturnAddress和callStackSymbols这两个函数可以同NSLog联合使用来跟踪线程的函数调用情况，是编程调试的重要手段
+
+
+</code></pre>
+
+<p>以下方法位于NSObject (NSThreadPerformAdditions)分类中，所有继承NSObject 实例化对象都可调用以下方法</p>
+
+<pre><code class="language-objective-c">/**
+  指定方法在主线程中执行
+参数1. SEL 方法
+    2.方法参数
+    3.是否等待当前执行完毕
+    4.指定的Runloop model
+*/
+- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array;
+- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;
+    // equivalent to the first method with kCFRunLoopCommonModes
+/**
+  指定方法在某个线程中执行
+参数1. SEL 方法
+    2.方法参数
+    3.是否等待当前执行完毕
+    4.指定的Runloop model
+*/
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait modes:(nullable NSArray&lt;NSString *&gt; *)array API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
+
+/**
+  指定方法在开启的子线程中执行
+参数1. SEL 方法
+    2.方法参数
+*/
+- (void)performSelectorInBackground:(SEL)aSelector withObject:(nullable id)arg API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
+</code></pre>
+
+<h4 id="gcd">GCD</h4>
+
+<p>它是苹果为多核的并行运算提出的解决方案，所以会自动合理地利用更多的CPU内核（比如双核、四核），最重要的是它会自动管理线程的生命周期（创建线程、调度任务、销毁线程），完全不需要我们管理，我们只需要告诉干什么就行。同时它使用的也是 <code>c语言</code>，不过由于使用了 Block，使得使用起来更加方便，而且灵活,所以是比较常用的</p>
+
+<p>在 <code>GCD</code> 中，加入了两个非常重要的概念： <strong>任务</strong> 和 <strong>队列</strong>。</p>
+
+<p>任务：说白了就是GCD 中就是一个 Block（<strong>同步执行</strong> 和 <strong>异步执行</strong>）</p>
+
+<p>队列：用于存放任务（<strong>串行队列</strong> 和 <strong>并行队列</strong>）</p>
+
+<pre><code class="language-objective-c">//主队列
+dispatch_queue_t queue = ispatch_get_main_queue();
+//全局并行队列(系统提供的一个并发队列,并行任务一般都加入到这个队列)
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+/**
+传入 DISPATCH_QUEUE_SERIAL 或 NULL 表示创建串行队列。
+传入 DISPATCH_QUEUE_CONCURRENT 表示创建并行队列 
+*/
+//串行队列
+dispatch_queue_t queue = dispatch_queue_create(&quot;标识&quot;, NULL);
+dispatch_queue_t queue = dispatch_queue_create(&quot;标识&quot;, DISPATCH_QUEUE_SERIAL);
+
+//并行队列
+dispatch_queue_t queue = dispatch_queue_create(&quot;标识&quot;, DISPATCH_QUEUE_CONCURRENT);
+
+
+//同步任务(所在的线程会被阻塞,直到bolck执行完毕)
+/**
+ 其实这里已经发生了死锁
+ Block 中的任务会被放到 main_queue中,此时在主队列中,block等这个同步任务完成才能继续,而这个同步任务中又要
+ 等block完成才能继续，就互相等待死锁了。
+*/
+dispatch_sync(dispatch_get_main_queue(), ^{
+   NSLog(@&quot;%@&quot;, [NSThread currentThread]);
+});
+
+//异步任务
+dispatch_async(dispatch_get_main_queue(), ^{
+   NSLog(@&quot;%@&quot;, [NSThread currentThread]);
+});
+
+
+</code></pre>
+
+<p>队列组</p>
+
+<pre><code class="language-objective-c">//=====某界面存在多个请求，希望所有请求均结束才进行某操作====
+/**
+有时候加载的内容需要通过好几个请求的数据组合而成，比如有两个请求A和B，我们通常为了省事，会将B请求放在A请求成功的回调中发起，在B的成功回调中将数据组合起来，这样做有明显的问题：
+1.请求如果多了，需要写许多嵌套的请求
+2.如果在除了最后一个请求前的某个请求失败了，就不会执行后面的请求，数据无法加载
+3.请求变成同步的，这是最大的问题，在网络差的情况下，如果有n个请求，意味着用户要等待n倍于并发请求的时间才能看到内容
+
+使用dispatch_group_enter(group)和dispatch_group_leave(group)，enter和leave必须配合使用，有几次enter就要有几次leave，否则group会一直存在。
+当所有enter的block都leave后，会执行dispatch_group_notify的block。
+
+不使用dispatch_group_enter(group)和dispatch_group_leave(group)
+对于网络请求来说，在请求发出时他就算执行完毕了，并不会等待完成回调。
+然后等所有请求发出完毕后,执行dispatch_group_notify的block
+*/
+
+//创建队列组
+dispatch_group_t  group = dispatch_group_create();
+//创建队列
+dispatch_queue_t  queue = dispatch_queue_create(NULL,  DISPATCH_QUEUE_CONCURRENT);
+
+//任务一
+dispatch_group_async(group, queue, ^{
+   //加入组
+   dispatch_group_enter(group);
+   //延迟调用模拟网络请求
+   dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 5*NSEC_PER_SEC);
+   dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       NSLog(@&quot;操作一完成&quot;);
+       //离开组（请求成功或者失败都得调）
+       dispatch_group_leave(group);
+   });
+});
+
+//任务二
+dispatch_group_async(group, queue, ^{
+   //加入组
+   dispatch_group_enter(group);
+   //延迟调用模拟网络请求
+   dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 5*NSEC_PER_SEC);
+   dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       NSLog(@&quot;操作二完成&quot;);
+       //离开组（请求成功或者失败都得调）
+       dispatch_group_leave(group);
+   });
+});
+
+//当2个任务都完成时会通知执行
+dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    NSLog(@&quot;全部完成&quot;);
+});
+
+
+//=====某界面存在多个请求，希望请求依次执行====
+/**
+因使用GCD设置线程依赖比较繁琐，这里通过NSOperationQueue进行实现，这里采用比较经典的例子，三个任务分别为下载图片，打水印和上传图片，三个任务需异步执行但需要顺序性
+*/
+
+//1.任务一：下载图片
+NSBlockOperation *operation1 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_A];
+}];
+ 
+//2.任务二：打水印
+NSBlockOperation *operation2 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_B];
+}];
+ 
+//3.任务三：上传图片
+NSBlockOperation *operation3 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_C];
+}];
+ 
+//4.设置依赖
+[operation2 addDependency:operation1];      //任务二依赖任务一
+[operation3 addDependency:operation2];      //任务三依赖任务二
+ 
+//5.创建队列并加入任务
+NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+[queue addOperations:@[operation3, operation2, operation1] waitUntilFinished:NO];
+
+//如果线程依赖设置并未起到作用,可通过信号量dispatch_semaphore进行解决
+//创建信号量为0
+dispatch_semaphore_t semaphpre = dispatch_semaphore_create(0);
+[网络请求:{
+        //信号量计数 + 1（不能在主线程中执行）
+        成功：dispatch_semaphore_signal(semaphpre);
+        //信号量计数 + 1（不能在主线程中执行）
+        失败：dispatch_semaphore_signal(semaphpre);
+}];
+//信号量计数小于0 ,阻塞当前线程(), 这里设置的等待时间是一直等待.
+dispatch_semaphore_wait(semaphpre, DISPATCH_TIME_FOREVER);
+
+
+
+//dispatch_async(dispatch_get_main_queue(),^{})存在的一个坑
+NSLog(@&quot;1&quot;);
+dispatch_async(dispatch_get_main_queue(), ^{
+   NSLog(@&quot;2&quot;);
+   self.label = [UILabel new];
+});
+NSLog(@&quot;3: %@&quot;,self.label);    
+/**
+我们想都在主线程应该会按1，2，3执行,实际按1,3,2执行,所有label始终为null
+
+原因: dispatch_async(dispatch_get_main_queue, block)调用后，
+block中的执行代码会在下一个runloop执行
+
+解决方法: 参考SDWebImage中的 dispatch_main_async_safe(block) 宏定义,
+根据线程标示判断当前是不是主线程，如果是直接执行，如果不是，异步执行
+将需要顺序的执行的代码放到同一个作用域里面
+*/
+</code></pre>
+
+<p>其他方面的功能</p>
+
+<pre><code class="language-objective-c"> //延时执行任务
+ 1.dispatch_after
+ //单例使用
+ 2.dispatch_once
+ /**
+ 这个函数我们称之为栅栏函数，用这个函数添加任务的时候，会查找当前队列中是否有在此任务之前添加的其他任务没有执行完毕，如果有，那么等待其他任务执行完毕再执行这个任务，同时在这个任务后面添加的任务必须等待这个栅栏函数任务执行完毕之后才能执行。
+ */
+ 3.dispatch_barrier_async
+ ...  
+</code></pre>
+
+<h4 id="nsoperation和nsoperationqueue">NSOperation和NSOperationQueue</h4>
+
+<p>NSOperation 是苹果公司对 GCD 的封装，完全面向对象，所以使用起来更好理解。 大家可以看到 <code>NSOperation 和 NSOperationQueue</code>分别对应 GCD 的 <code>任务 和 队列</code> 。操作步骤也很好理解：</p>
+
+<p>1.将要执行的任务封装到一个 <code>NSOperation</code> 对象中。</p>
+
+<p>2.将此任务添加到一个 <code>NSOperationQueue</code> 对象中。</p>
+
+<pre><code class="language-objective-c">//======NSInvocationOperation====
+//1.创建NSInvocationOperation对象
+NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];
+
+NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+}];
+
+//在创建的基础上再添加block,必须在start 之前
+[operation addExecutionBlock:^{
+}];
+
+//2.开始执行
+[operation start];
+
+//========NSBlockOperation=======
+//主队列
+NSOperationQueue *queue = [NSOperationQueue mainQueue];
+
+//队列依赖
+//1.任务一：下载图片
+NSBlockOperation *operation1 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_A];
+}];
+ 
+//2.任务二：打水印
+NSBlockOperation *operation2 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_B];
+}];
+ 
+//3.任务三：上传图片
+NSBlockOperation *operation3 = [NSBlockOperation blockOperationWithBlock:^{
+   [self request_C];
+}];
+ 
+//4.设置依赖
+[operation2 addDependency:operation1];      //任务二依赖任务一
+[operation3 addDependency:operation2];      //任务三依赖任务二
+ 
+//5.创建队列并加入任务
+NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+[queue addOperations:@[operation3, operation2, operation1] waitUntilFinished:NO];
+
+//=====其他用法=====
+//互斥锁(NSLock也是锁)
+@synchronized(self) {
+    //需要执行的代码块
+}
+...
+
+</code></pre>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -5,10 +5,23 @@
     <link>https://niweiwei163.github.io/post/</link>
     <description>Recent content in Posts on Your title</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 02 Jul 2019 16:15:53 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jul 2019 16:15:53 +0800</lastBuildDate>
     
 	<atom:link href="https://niweiwei163.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>线程了解</title>
+      <link>https://niweiwei163.github.io/post/%E7%BA%BF%E7%A8%8B%E4%BA%86%E8%A7%A3/</link>
+      <pubDate>Fri, 12 Jul 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/%E7%BA%BF%E7%A8%8B%E4%BA%86%E8%A7%A3/</guid>
+      <description>线程 在 iOS 中其实目前有 4 套多线程方案，他们分别是
+  Pthreads NSThread GCD NSOperation &amp;amp; NSOperationQueue   Pthreads 这个其实不怎么用,了解下即可（毕竟做 iOS 开发几乎不可能用到）
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { pthread_t thread; //创建一个线程并自动执行 pthread_create(&amp;amp;thread, NULL, start, NULL); } void *start(void *data) { NSLog(@&amp;quot;%@&amp;quot;, [NSThread currentThread]); return NULL; }  看代码就会发现他需要 c语言函数，你需要手动处理线程的各个状态的转换即管理生命周期，比如，这段代码虽然创建了一个线程，但并没有销毁。
+NSThread NSThread经过苹果封装后的，并且完全面向对象的。所以你可以直接操控线程对象，非常直观和方便。但是，它的生命周期还是需要我们手动管理，所以这套方案也是偶尔用用，比如 [NSThread currentThread]，它可以获取当前线程类，你就可以知道当前线程的各种属性，用于调试十分方便。
+//-----实例方法(常用的,不是全部)------ //创建 NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run:) object:nil]; NSThread *thread= [[NSThread alloc]initWithBlock:^{ NSLog(@&amp;quot;initWithBlock&amp;quot;); }]; //启动 [thread start]; //是否为主线程 [thread isMainThread] //取消线程 [thread cancel] //判断线程是否正在执行 [thread isExecuting] //判断线程是否已经结束 [thread isFinished] //判断线程是否撤销 [thread isCancelled] //-----类方法(常用的,不是全部)------ //创建子线程并开始，创建后就可执行，不需手动开启 + (void)detachNewThreadWithBlock:(void (^)(void))block; + (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(nullable id)argument; //获取当前线程 [NSThread currentThread] //当前代码运行所在线程是否是子线程 [NSThread isMultiThreaded] //当前代码所在线程睡到指定时间 [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.</description>
+    </item>
     
     <item>
       <title>SDWebImage的使用和理解</title>
