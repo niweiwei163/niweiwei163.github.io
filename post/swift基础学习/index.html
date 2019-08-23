@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>swift基础学习 // Your title</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://niweiwei163.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="swift基础学习"/>
+<meta name="twitter:description" content="基础 /** swift 不需要以;结尾 swift非常注重格式,比如 a = 3（左右对称,不然报错） swift没有宏这个概念,没有类扩展这个概念 swift没有main.m文件 @UIApplicationMain是程序入口标识 swift在当前类中访问属性或者方法的时候 可以省略 self. 推荐不写, 后面的闭包中必须添加self. swift按钮的监听事件 使用 #selector */ func firstDemo1() { //-----------基本类型------- //常量 let a = 10 //变量 var b = 20 //手动指定类型（swift是一个强类型的语言,小数默认类型是double，Int（NSInteger）） let c: Int = 10 let d: CGFloat = 20.3 let e: String = &quot;String&quot; //let res1 = c &#43; d --&gt; 会报错 let res2 = c &#43; Int(d) print(a) // -&gt;打印使用print语法,不用NSLog var name = &quot;name&quot; var site = &quot;site&quot; print(&quot;\(name)的官网地址为：\(site)&quot;) //可选类型,可以为nil var a:Int?"/>
+
+    <meta property="og:title" content="swift基础学习" />
+<meta property="og:description" content="基础 /** swift 不需要以;结尾 swift非常注重格式,比如 a = 3（左右对称,不然报错） swift没有宏这个概念,没有类扩展这个概念 swift没有main.m文件 @UIApplicationMain是程序入口标识 swift在当前类中访问属性或者方法的时候 可以省略 self. 推荐不写, 后面的闭包中必须添加self. swift按钮的监听事件 使用 #selector */ func firstDemo1() { //-----------基本类型------- //常量 let a = 10 //变量 var b = 20 //手动指定类型（swift是一个强类型的语言,小数默认类型是double，Int（NSInteger）） let c: Int = 10 let d: CGFloat = 20.3 let e: String = &quot;String&quot; //let res1 = c &#43; d --&gt; 会报错 let res2 = c &#43; Int(d) print(a) // -&gt;打印使用print语法,不用NSLog var name = &quot;name&quot; var site = &quot;site&quot; print(&quot;\(name)的官网地址为：\(site)&quot;) //可选类型,可以为nil var a:Int?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://niweiwei163.github.io/post/swift%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" />
+<meta property="article:published_time" content="2019-08-21T16:15:53&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-21T16:15:53&#43;08:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://niweiwei163.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1>Your title</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/gohugoio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/gohugoio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">swift基础学习</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 21, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          10 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h3 id="基础">基础</h3>
+
+<pre><code class="language-swift">/**
+swift 不需要以;结尾
+swift非常注重格式,比如 a = 3（左右对称,不然报错）
+swift没有宏这个概念,没有类扩展这个概念
+swift没有main.m文件  @UIApplicationMain是程序入口标识
+swift在当前类中访问属性或者方法的时候 可以省略 self. 推荐不写, 后面的闭包中必须添加self.
+swift按钮的监听事件 使用 #selector
+*/
+func firstDemo1() {
+  
+  //-----------基本类型-------
+  //常量
+  let a = 10
+  //变量
+  var b = 20
+  
+  //手动指定类型（swift是一个强类型的语言,小数默认类型是double，Int（NSInteger））
+  let c: Int = 10
+  let d: CGFloat = 20.3
+  let e: String = &quot;String&quot;
+  
+  //let res1 = c + d   --&gt;  会报错
+  let res2 = c + Int(d)
+  
+  print(a) // -&gt;打印使用print语法,不用NSLog
+  var name = &quot;name&quot;
+  var site = &quot;site&quot;
+  print(&quot;\(name)的官网地址为：\(site)&quot;)
+  
+  
+  //可选类型,可以为nil
+  var a:Int? = 10
+  
+  //强制类型,不能为nil（'!'强制解包有风险,需要谨慎使用,程序员需要对'!'负责  如果为nil 程序会崩溃）
+  var f:Int! = 20
+  
+  /**
+   空合并运算符  (a ?? b) 将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b。
+   两个条件：表达式a必须是可选类型，默认值b的类型必须要和a存储值的类型一致
+   在 Swift中有一个非常有用的操作符，可以用来快速的对 nil 进行判断。
+   */
+  print((b ?? 0))
+  
+   // inout 声明的为指针
+  
+  
+  //---------类型转换---------
+  //is,类型检查,实例是否属于特定子类型。若实例属于那个子类型，类型检查操作符返回 true，否则返回 false。
+  if item is Maths {}
+  
+  //向上转型(as) cat -&gt; animal(cat肯定属于animal)
+  class Animal {}
+  class Cat: Animal {}
+  let cat = Cat()
+  let animal = cat as Animal
+  
+  let num4 = (42 / 2) as Double
+  
+  //向下转型(as? 或 as!) animal -&gt; cat（animal不一定为cat）
+  class Animal {}
+  class Cat: Animal {}
+  let animal :Animal  = Cat()
+  let cat = animal as! Cat
+  
+  let animal:Animal = Cat()
+  if let cat = animal as? Cat{
+      print(&quot;cat is not nil&quot;)
+   } else {
+      print(&quot;cat is nil&quot;)
+   }
+  
+  /**
+   Any 和 AnyObject
+   AnyObject可以代表任何class类型的实例。
+   Any可以表示任何类型，包括方法类型（function types）。
+  */
+  
+  
+  
+  
+  
+  
+  //-----------if------------
+   /**
+    1. 条件语句没有 () ,可以写 但不推荐写
+    2. 分支结构必须有 {}
+    3. 没有 非零即真的概念,只有 true 和 false
+    */    
+  
+   var varA:Int = 100;
+   if varA == 20 {
+   } else if varA == 50 {
+   } else {
+   }
+  
+   //如果url2 不为nil
+   if let url2 = URL(string: urlString) {
+            let req2 = URLRequest(url: url2)
+   }
+  
+  //如果url1 为nil
+  guard var url1 = URL(string: urlStr) else {
+     return
+  }
+  
+  
+  
+  //---------switch--------
+   /**
+     1.不需要写break
+     2.每个匹配项中至少有一段代码可以执行
+     3.可以判断任意类型
+     4.一次可以匹配多个值
+     5.在匹配项中可以声明临时变量,而且不需要加 {} 限制作用域
+    */
+   let x = &quot;20000&quot;
+   switch x {
+        case &quot;20000&quot;,&quot;30000&quot;:
+            print(&quot;架构师&quot;)
+        case &quot;18000&quot;:
+            print(&quot;高级开发工程师&quot;)
+        case &quot;12000&quot;:
+            print(&quot;中级开发工程师&quot;)
+        case &quot;6000&quot;:
+            print(&quot;菜逼&quot;)
+        default:
+            print(&quot;逗比&quot;)
+    }       
+  
+  
+  
+  //---------循环--------   
+  for var index = 0; index &lt; 3; ++index {
+  }
+  for index in 1...5 {
+  }
+  for index in someInts {
+  }
+  
+  while index &lt; 20 {
+  }
+  
+  repeat{
+  }while index &lt; 20
+  
+  continue
+  break
+  fallthrough(如果在一个case执行完后，继续执行下面的case，需要使用fallthrough(贯穿)关键字。)
+  //会执行 case 2，3，4
+  var index = 2
+  switch index {
+   case 1  :
+   case 2  :
+      fallthrough
+   case 3  :
+   case 4  :
+   default :
+  }
+  
+  
+  
+  
+//--------枚举---------
+/**
+  和 OC不同，Swift 的枚举成员在被创建时不会被赋予一个默认的整型值。在上面的DaysofaWeek例子中，Sunday，Monday，……和Saturday不会隐式地赋值为0，1，……和6。相反，这些枚举成员本身就有完备的值，这些值是已经明确定义好的DaysofaWeek类型。
+  
+ */  
+enum DaysofaWeek {
+    case Sunday
+    case Monday
+    case TUESDAY
+    case WEDNESDAY
+    case THURSDAY
+    case FRIDAY
+    case Saturday
+}
+
+var weekDay = DaysofaWeek.THURSDAY
+weekDay = .THURSDAY
+switch weekDay
+{
+case .Sunday:
+    print(&quot;星期天&quot;)
+case .Monday:
+    print(&quot;星期一&quot;)
+case .TUESDAY:
+    print(&quot;星期二&quot;)
+case .WEDNESDAY:
+    print(&quot;星期三&quot;)
+case .THURSDAY:
+    print(&quot;星期四&quot;)
+case .FRIDAY:
+    print(&quot;星期五&quot;)
+case .Saturday:
+    print(&quot;星期六&quot;)
+}
+
+  
+  //当使用整数作为原始值时，隐式赋值的值依次递增1。如果第一个值没有被赋初值，将会被自动置为0。
+  enum Month: Int {
+    case January = 1, February, March, April, May, June, July, August, September, October, November, December
+}
+  
+  
+  
+  
+  
+  //---------string--------
+   //字符串的本质是结构体
+   let str: String = &quot;长得帅可以撩妹,长丑是骚扰&quot;
+   //String和NSString可以相互转换
+   let NSstr = str as NSString
+   //长度
+   let len = str1.lengthOfBytes(using: .utf8)
+   //字符集合
+   let length = str1.count
+   //遍历字符串
+   for character in str1 {
+   }
+   //拼接
+   let res1 = str2 + str3
+   //\() 转义符号 转义字符串
+   let res4 = &quot;\(name)\(age)&quot;
+   //截取
+   let str4 = &quot;我喜欢手指在键盘上飞舞的感觉&quot;
+   let start = str4.index(str4.startIndex, offsetBy: 3)
+   let sub1 = str4.suffix(3)
+   let sub2 = str4.suffix(from: start)
+  
+  
+  
+  //---------数组--------
+  //不推荐在数组中放不同的元素
+  let array: [Any] = [&quot;阿大,阿二,阿三&quot;,18]
+  //实例化空数组
+  var emptyArray = [String]()
+  //var表示可变数组
+  var arr = [&quot;大哥&quot;,&quot;二哥&quot;,&quot;三哥&quot;,&quot;四哥&quot;]
+  //增
+  arr.append(&quot;老司机&quot;)
+  //改
+  arr[0] = &quot;姐姐&quot;
+  //删
+  arr.remove(at: 1)
+  //查
+  for str in arr {
+  }
+  //是否为空
+  arr.isEmpty
+        
+  //倒序遍历
+  for str in arr.reversed() {
+  }
+        
+  //同时遍历角标和对应的值
+  for (index,value) in arr.enumerated().reversed() {       
+  }     
+  
+  //
+  var items = [10,20,30].makeIterator()
+  while let x = items.next() {
+    print(x)
+  }
+        
+  //3.数组的合并
+  let array1: [Any] = [&quot;老张&quot;,&quot;老李&quot;,19]
+  let array2: [Any] = [&quot;大哥&quot;,&quot;大姐&quot;,23]
+  let array3 = array1 + array2
+  print(array3)
+  
+  
+  
+  //---------字典--------
+  let dict: [String : Any] = [&quot;name&quot; : &quot;玄哥&quot;,&quot;age&quot; : &quot;21&quot;]
+  //声明空字典
+  var emptyDict = [String : Any]()
+  //增
+  dic[&quot;love&quot;] = &quot;镜子&quot;
+  //改
+  dic[&quot;love&quot;] = &quot;小镜子&quot;
+  //删
+  // dic.removeAll()
+  dic.removeValue(forKey: &quot;age&quot;)
+  //是否为空
+  dic.isEmpty
+  //遍历
+  for (key,value) in dic {
+  }
+  
+  
+  
+  
+  
+  //---------函数--------
+  func getArea(a: Int,b: Int) -&gt; Int {
+        return a * b
+  }
+  
+  /**
+  你可以在局部参数名前指定外部参数名，中间以空格分隔，外部参数名用于在函数调用时传递给函数的参数
+  如果你提供了外部参数名，那么函数在被调用时，必须使用外部参数名
+  如果不给外部参数，默认外部参数就是a,b
+  */
+  func getArea2(width a:Int,height b: Int) -&gt; Int {
+     return a * b
+  }
+  
+  //可变参数,函数调用时，你可以用可变参数来指定函数参数，其数量是不确定的。
+  func vari&lt;N&gt;(members: N...){
+    for i in members {
+        print(i)
+    }
+  }
+  vari(members: 4,3,5)
+    
+  //函数的内部函数
+  func numOne() {
+     func numTwo(a: Int,b: Int) {
+     }
+     numTwo(a: 2, b: 4)
+  }  
+  
+  //元组中的元素可以是任意类型，使用的是圆括号,元组（tuple）类型让多个值作为一个复合值从函数中返回
+  func minMax(array: [Int]) -&gt; (min: Int, max: Int)? {
+     ...
+     return (currentMin, currentMax)
+  }
+  
+  
+  
+  
+  //---------闭包--------
+  /**
+   可以执行的代码块,类似OC中的block
+   可以当做参数 在函数中传递
+   在闭包中如果访问到了self或者其属性的时候,要注意考虑循环引用
+  */
+  
+  //in 后面是执行的本体
+  let closure = { (a: Int,b: Int) -&gt; Int in
+       let res = a + b
+       return res
+  }      
+  let res = closure(3, 3)
+  
+  
+  /**
+   尾随闭包
+     系统会帮你简写,不需要coder手动简写
+     简写的规律:当函数最后一个参数是闭包的时候,函数的参数的 '()' 会提前关闭
+     如果函数只有闭包一个参数 '()'可以省略
+  
+   @escaping :在函数return之后才被唤起执行，那么这个闭包是逃逸闭包。并且这个闭包的参数是可以“逃出”这个函
+     数体外的。
+     闭包默认是不可逃逸的,如果是逃逸闭包需要使用@escaping属性标记。这样做好处:
+     编译器知道这个闭包是不可逃逸的，它可以关注内存管理的关键细节。
+  */
+  as、as!、as? 关键字-----
+  
+  
+  //只有闭包一个参数
+  func loadData(finishedCallBack: @escaping (String) -&gt; ()) {
+     ...
+    //关闭闭包
+    finishedCallBack(&quot;xxxx&quot;);
+  }     
+  loadData { (result) in  
+  }
+  
+  //闭包为最后一个参数
+  func loadData(userName: String,finishedCallBack: @escaping (String) -&gt; ()) {
+      .... 
+    //关闭闭包
+    finishedCallBack(&quot;xxxx&quot;);
+  }
+  loadData(userName: &quot;小明&quot;) { (result) in
+  }
+  
+  //避免循环引用,[unowned self] 和 [weak self]
+  /**
+   所有在异步请求回调的block中需要使用 [weak self]，如果使用 [unowned self]，异步回调时self 可能已被释放，会引起EXC_BAD_ACCESS 野指针错误而crash
+  */
+  [unowned self] //二者需要销毁的时机是一样的,同时销毁,self的地址会自动指向nil
+  [weak self] //当self被系统回收时,self的地址会自动指向nil
+  
+  loadData { [unowned self] (result) in
+  }
+  
+  
+  
+  
+  //-------as、as!、as? 关键字-----
+   as：从派生类转换为基类，向上转型（upcasts）
+   as!：向下转型（Downcasting）时使用。由于是强制类型转换，如果转换失败会报 runtime 运行错误。
+   as? 和 as! 操作符的转换规则完全一样。但 as? 如果转换不成功的时候便会返回一个 nil 对象。成功的话返回可选类型值。
+  
+</code></pre>
+
+<h3 id="对象">对象</h3>
+
+<pre><code class="language-swift">//-----------类-----------
+class MarksStruct {
+   @objc var sid: String?
+         var mark: Int
+   init(mark: Int) {
+      self.mark = mark
+   }
+  
+  //通过字典来实例化对象  ==&gt; KVC
+    init(dict: [String : Any]) {
+        super.init()
+        //调用self的setValuesForKeys
+        setValuesForKeys(dict)
+    }
+    
+   
+    //kvo 重写
+    override func setValue(_ value: Any?, forKey key: String) {
+        if key == &quot;id&quot; {
+            setValue(value, forKey: &quot;sid&quot;)
+            return
+        }
+        super.setValue(value, forKey: key)
+    }
+    
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+         //空实现
+    }
+  
+  
+    //使用kvc，UndefinedKey方法
+    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+        if (key as NSString).isEqualToString(&quot;expires_in&quot;) {
+            //过期时间
+            expiresIn = value as? NSNumber
+        }else if (key as NSString).isEqualToString(&quot;access_token&quot;){
+            accessToken = value as? String
+        }
+        
+    }
+}
+
+class studentMarks {
+   var mark1 = 300
+   var mark2 = 400
+   var mark3 = 900
+}
+let marks = studentMarks()
+
+//运算符为：=== ,如果两个常量或者变量引用同一个类实例则返回 true
+//运算符为：!== ,如果两个常量或者变量引用不同一个类实例则返回 true
+
+
+
+//-----------属性-----------
+/**
+ 存储属性:需要开辟空间，以存储数据
+ 计算属性:执行函数返回其他内存地址
+ 只实现 getter 方法的属性被称为计算型属性，等同于 OC 中的 ReadOnly 属性
+ 计算型属性本身不占用内存空间
+
+ 存储型属性：用于存储一个常量或变量。
+
+ 计算型属性：不直接存储值，而是通过get、set方法来取值或赋值。同时还可以对其他的属性进行操作。
+          
+ 类型型属性：定义在类上的属性，用static 来修饰属性，需要用类名来调用该属性。 
+
+*/
+
+struct Point {
+    var x: Double = 0.0
+    var y: Double = 0.0
+}
+
+struct Size {
+    var width: Double = 0.0
+    var height: Double = 0.0
+}
+
+class Rectangle {
+    // 存储型属性
+    var origin: Point = Point()
+    var size: Size = Size()
+    
+    // 计算型属性：（1）必须用var（2）属性的类型不可以省略 （3）如果要想修改属性的值，必须写setter方法，否则只有一个getter方法
+    var center: Point {
+        get {
+            let centerX = origin.x + size.width/2
+            let centerY = origin.y + size.height/2
+            return Point(x: centerX, y: centerY)
+        }
+        // 如果不写newCenter，可以直接用newValue
+        set(newCenter) {
+            origin.x = newCenter.x - size.width/2
+            origin.y = newCenter.y - size.height/2
+        }
+    }
+    
+    // 如果只是这样写，代表的是只有get方法,是不可以给area赋值的（类似oc的ReadOnly 属性，简写了get{}）
+    var area: Double {        
+        return size.width * size.height
+    }
+    
+   /**
+    使用关键字 static 来定义值类型的类型属性，关键字 class 来为类定义类型属性。
+    class修饰的属性可以被子类重写,但是static不能被重写.
+    class只能在类中修饰,而static可以不仅可以作用于类中,也可以在enum,和struct中使用.
+   */ 
+　　//值类型的类型属性
+　　static var biggestWidth: Double = 0
+   //类定义类型属性
+   class var computedTypeProperty: Int {
+      // 这里返回一个 Int 值
+   }
+    
+    init(origin: Point, size: Size) {
+        self.origin = origin
+        self.size = size
+    }
+}
+
+var rectangle = Rectangle(origin: Point(), size: Size(width: 20, height: 40))
+rectangle.center
+
+rectangle.center = Point(x: 40, y: 80)
+rectangle.area
+rectangle.origin
+
+Rectangle.biggestWidth
+Rectangle.computedTypeProperty
+
+
+//在 Swift 中 getter &amp; setter 很少用,基本上当属性为&quot;计算属性&quot;时,才会用到getter方法
+class sample {
+    var no1 = 0.0, no2 = 0.0
+    var length = 300.0, breadth = 150.0
+    var middle: (Double, Double) {
+        get{
+            return (length / 2, breadth / 2)
+        }
+        set(axis){
+            no1 = axis.0 - (length / 2)
+            no2 = axis.1 - (breadth / 2)
+        }
+    }
+}
+
+//懒加载属性:与 OC 不同的是，lazy 属性即使被设置为 nil 也不会被再次调用
+lazy var title: String = {
+    return &quot;Mr &quot; + (self.name ?? &quot;&quot;)
+}()
+
+
+/**
+ willSet在设置新的值之前调用
+ didSet在新的值被设置之后立即调用,getter方法的逻辑一般写在这里
+ willSet和didSet观察器在属性初始化过程中不会被调用（当属性被赋值的时候调用）
+*/
+class Samplepgm {
+    var counter: Int = 0{
+        willSet(newTotal){
+            print(&quot;计数器: \(newTotal)&quot;)
+        }
+        didSet{
+            if counter &gt; oldValue {
+                print(&quot;新增数 \(counter - oldValue)&quot;)
+            }
+        }
+    }
+}
+
+
+
+
+
+
+//-----------方法-----------
+/**
+ class修饰的方法可以被子类重写,但是static不能被重写.
+ class只能在类中修饰,而static可以不仅可以作用于类中,也可以在enum,和struct中使用.
+*/
+class multiplication {
+    var count: Int = 0
+    
+    //实例方法
+    func incrementBy(first no1: Int, no2: Int) {
+        count = no1 * no2
+        print(count)
+    }
+  
+   //类方法
+    class func abs(number: Int) -&gt; Int{
+        
+    }
+  
+    static func add(number: Int) -&gt; Int{
+    }
+  
+   //默认情况下，实例方法中是不可以修改值类型的属性，使用mutating后可修改属性的值
+    mutating func modify (){
+      count = 10;
+    }
+}
+
+
+
+
+
+
+//-----------下标脚本----------
+class daysofaweek {
+    private var days = [&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;,
+        &quot;Thursday&quot;, &quot;Friday&quot;, &quot;saturday&quot;]
+    subscript(index: Int) -&gt; String {
+        get {
+            return days[index]   // 声明下标脚本的值
+        }
+        set(newValue) {
+            self.days[index] = newValue   // 执行赋值操作
+        }
+    }
+}
+var p = daysofaweek()
+
+print(p[0])
+print(p[1])
+print(p[2])
+print(p[3])
+
+
+
+
+
+//-----------继承-----------
+/**
+重载: 函数名相同,函数的参数类型或者参数的个数不同,函数就形成了重载,任何函数都可以重载
+     (oc 不支持重载)
+
+重写（Overriding）:重写是子类的方法覆盖父类的方法，要求方法名和参数都相同，重写必须继承，重载不用
+*/
+
+//重写
+class Student: Person {
+    var lesson: String
+    override init(name: String, age: Int) {
+      // 必须放在super.init()之前
+        lesson = &quot;Python&quot; 
+        super.init(name: name, age: age)
+
+    }
+    
+   //重写属性
+    override var area: String {
+        return super.area + &quot; ，但现在被重写为 \(print)&quot;
+    }
+  
+   //重写方法
+   override func show() {
+   }
+  
+   //防止重写(final 关键字,写在类前面防止类被继承)
+   final var area: String {}
+}
+
+//重载
+class Student: Person {
+    var lesson: String
+    init(name: String, age: Int, lesson:String) {
+        self.lesson = lesson
+        super.init(name: name, age: age)
+    }
+}
+
+
+
+
+
+
+//-----------构造-----------
+class MainClass {
+    var name: String
+    //指定构造器
+    init(name: String) {
+        self.name = name
+    }
+    
+    //便利构造器
+    convenience init() {
+        self.init(name: &quot;[匿名]&quot;)
+    }
+    
+    //析构过程（销毁）
+    deinit {
+    }
+}
+
+
+
+
+//-----------扩展-----------
+var myNameKey = 100
+extension Int {
+  //计算属性
+  var add: Int {return self + 100 }
+  
+  
+  //存储属性（Extension中只能添加计算属性, 如果我们需要添加存储属性的话, 就用到了Runtime的方法.）
+  var myName: String {
+        set {
+            objc_setAssociatedObject(self, &amp;myNameKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+        
+        get {
+            if let rs = objc_getAssociatedObject(self, &amp;myNameKey) as? String {
+                return rs
+            }
+            return &quot;&quot;
+        }
+    }
+  
+  //方法
+  func topics(summation: () -&gt; ()) {
+      for _ in 0..&lt;self {
+         summation() 
+      }
+   }
+  
+  //下标
+  subscript(var multtable: Int) -&gt; Int {
+      var no1 = 1
+      while multtable &gt; 0 {
+         no1 *= 10
+         --multtable
+      }
+      return (self / no1) % 10
+   }
+  
+  //枚举
+   enum calc
+   {
+      case add
+      case sub
+      case mult
+      case div
+      case anything
+   }
+  
+  var print: calc {
+      switch self
+      {
+         case 0:
+            return .add
+         case 1:
+            return .sub
+         case 2:
+            return .mult
+         case 3:
+            return .div
+         default:
+            return .anything
+       }
+   }
+  
+  //结构体
+  public struct UserInfo {
+    public static let userLogin = &quot;notification.name.userLogin&quot;
+    public static let userLogout = &quot;notification.name.userLogin&quot; 
+    public static let userForceLogout = &quot;notification.name.userForceLogout&quot;)
+  }
+
+}
+
+
+
+
+
+//-----------协议-----------
+protocol classa {
+    var marks: Int { get set }
+    var result: Bool { get }
+  
+    func attendance() -&gt; String
+    func markssecured() -&gt; String   
+}
+
+class classc: classb {
+    var marks = 96
+    let result = true
+  
+    func attendance() -&gt; String {
+        return &quot; \(marks)&quot;
+    }
+    
+    func markssecured() -&gt; String {
+        return &quot; \(marks)&quot;
+    }
+}
+
+
+//where
+protocol aProtocol{}
+extension aProtocol where Self:UIView{
+    //只给遵守aProtocol协议的UIView添加了拓展
+    func getString() -&gt; String{
+        return &quot;string&quot;
+    }
+}
+
+
+/**
+ 你可以在遵循该协议的类中实现构造器，并指定其为类的指定 构造器 或者 便利构造器
+ */
+protocol SomeProtocol {
+   init(someParameter: Int)
+}
+
+class SomeClass: SomeProtocol {
+   //构造器实现 或者 便利构造器实现（2选1,哪个都可以）
+   required init(someParameter: Int) {
+   }
+   required convenience init(someParameter: Int)  {
+   }
+}
+
+
+//你可以在协议的继承列表中,通过添加class关键字,限制协议只能适配到类（class）类型
+protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {
+    // 协议定义
+}
+
+
+
+//-------------范型--------------
+// 定义一个交换两个变量的函数
+func swapTwoValues&lt;T&gt;(_ a: inout T, _ b: inout T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+ 
+var numb1 = 100
+var numb2 = 200
+ 
+print(&quot;交换前数据:  \(numb1) 和 \(numb2)&quot;)
+swapTwoValues(&amp;numb1, &amp;numb2)
+print(&quot;交换后数据: \(numb1) 和 \(numb2)&quot;)
+ 
+var str1 = &quot;A&quot;
+var str2 = &quot;B&quot;
+ 
+print(&quot;交换前数据:  \(str1) 和 \(str2)&quot;)
+swapTwoValues(&amp;str1, &amp;str2)
+print(&quot;交换后数据: \(str1) 和 \(str2)&quot;)
+
+
+//类型约束
+func someFunction&lt;T: SomeClass, U: SomeProtocol&gt;(someT: T, someU: U) {
+    // 这里是泛型函数的函数体部分
+}
+
+//protocol不能使用&lt;T&gt;这种泛型，但是提供了associatedtype关键字来支持泛型 
+protocol Container {
+    associatedtype ItemType
+    // 添加一个新元素到容器里
+    mutating func append(_ item: ItemType)
+    // 获取容器中元素的数
+    var count: Int { get }
+    // 通过索引值类型为 Int 的下标检索到容器中的每一个元素
+    subscript(i: Int) -&gt; ItemType { get }
+}
+
+struct Stack&lt;Element&gt;: Container {
+    // Stack&lt;Element&gt; 的原始实现部分
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -&gt; Element {
+        return items.removeLast()
+    }
+    // Container 协议的实现部分
+    mutating func append(_ item: Element) {
+        self.push(item)
+    }
+    var count: Int {
+        return items.count
+    }
+    subscript(i: Int) -&gt; Element {
+        return items[i]
+    }
+}
+
+
+
+
+//-------------访问控制--------------
+//级别从高到低
+//可以访问自己模块中源文件里的任何实体，别人也可以通过引入该模块来访问源文件里的所有实体。
+public
+//可以访问自己模块中源文件里的任何实体，但是别人不能访问该模块中源文件里的实体。
+internal
+//文件内私有，只能在当前源文件中使用。
+fileprivate
+//只能在类中访问，离开了这个类或者结构体的作用域外面就无法访问。
+private
+
+
+
+
+//----------------------
+  let myView = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+  // myView.backgroundColor = UIColor.yellow
+  myView.backgroundColor = UIColor.blue
+  //color Literal属性
+  let btn = UIButton(type: UIButtonType.custom)
+  //let btn1 = UIButton(type: .contactAdd)  可以简写 直接.+枚举
+  myView.addSubview(btn)      
+  //添加到根视图
+  view.addSubview(myView)
+  //给按钮添加点击事件
+  btn.addTarget(self, action: #selector(btnDidClick), for: .touchUpInside)
+ 
+}
+
+/**
+ @objc修饰 将类、方法、属性等暴露给OC,OC能直接调。
+ Swift 会默认自动为所有的非 private 的类（继承于NSObject,非继承NSObject的要手动添加）和成员加上 @objc
+ 虽然绝大部分时候自动转换的方法名已经足够好用 (比如会将 Swift 中类似 init(name: String) 的方法转换成 -  initWithName:(NSString *)name 这样)
+*/
+@objc func btnDidClick() {
+        print(&quot;我被点击了&quot;)
+}
+
+
+</code></pre>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

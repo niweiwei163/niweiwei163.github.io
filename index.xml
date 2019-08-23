@@ -5,10 +5,19 @@
     <link>https://niweiwei163.github.io/</link>
     <description>Recent content on Your title</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 12 Jul 2019 16:15:53 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 Aug 2019 16:15:53 +0800</lastBuildDate>
     
 	<atom:link href="https://niweiwei163.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>swift基础学习</title>
+      <link>https://niweiwei163.github.io/post/swift%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 21 Aug 2019 16:15:53 +0800</pubDate>
+      
+      <guid>https://niweiwei163.github.io/post/swift%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</guid>
+      <description>基础 /** swift 不需要以;结尾 swift非常注重格式,比如 a = 3（左右对称,不然报错） swift没有宏这个概念,没有类扩展这个概念 swift没有main.m文件 @UIApplicationMain是程序入口标识 swift在当前类中访问属性或者方法的时候 可以省略 self. 推荐不写, 后面的闭包中必须添加self. swift按钮的监听事件 使用 #selector */ func firstDemo1() { //-----------基本类型------- //常量 let a = 10 //变量 var b = 20 //手动指定类型（swift是一个强类型的语言,小数默认类型是double，Int（NSInteger）） let c: Int = 10 let d: CGFloat = 20.3 let e: String = &amp;quot;String&amp;quot; //let res1 = c + d --&amp;gt; 会报错 let res2 = c + Int(d) print(a) // -&amp;gt;打印使用print语法,不用NSLog var name = &amp;quot;name&amp;quot; var site = &amp;quot;site&amp;quot; print(&amp;quot;\(name)的官网地址为：\(site)&amp;quot;) //可选类型,可以为nil var a:Int?</description>
+    </item>
     
     <item>
       <title>线程了解</title>
